@@ -9,7 +9,7 @@ export const fetchCryptoData = async (count = 10) => {
         vs_currency: "usd",
         order: "market_cap_desc",
         per_page: count,
-        page: 1,
+        page: page,
       },
     }
   );
