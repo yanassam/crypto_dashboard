@@ -1,7 +1,10 @@
 import React from "react";
 import { TableRow, TableCell } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const CryptoRow = ({ crypto }) => {
+  const theme = useTheme();
+
   return (
     <TableRow>
       <TableCell>
