@@ -5,7 +5,7 @@ import CryptoTable from "./components/CryptoTable/CryptoTable";
 import PaginationControls from "./components/PaginationControls/PaginationControls";
 import SearchBar from "./components/SearchBar/SearchBar";
 import FilterSortControls from "./components/FilterSortControls/FilterSortControls";
-import { Container, Grid, Paper } from "@mui/material";
+import { Button, Container, Grid, Paper } from "@mui/material";
 
 function App() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -76,6 +76,13 @@ function App() {
     setFilterValue(minPrice);
   };
 
+  const handleReset = () => {
+    setSearchQuery("");
+    setFilterValue(0);
+    setSortType("price");
+    setPage(1);
+  };
+
   if (loading) return <p>Загрузка...</p>;
   if (error) return <p>{error}</p>;
 
@@ -87,6 +94,15 @@ function App() {
           <Paper style={{ padding: 16 }}>
             <SearchBar onSearch={handleSearch} />
             <FilterSortControls onSort={handleSort} onFilter={handleFilter} />
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={handleReset}
+              fullWidth
+              style={{ marginTop: 16 }}
+            >
+              Reset all filters
+            </Button>
           </Paper>
         </Grid>
 
