@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TextField, Button, Box } from "@mui/material";
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,15 +13,18 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
+    <Box display="flex" flexDirection="column" gap={2} mb={2}>
+      <TextField
+        label="Введите название криптовалюты"
         value={searchTerm}
         onChange={handleInputChange}
-        placeholder="Введите название криптовалюты"
+        variant="outlined"
+        fullWidth
       />
-      <button onClick={handleSearch}>Search</button>
-    </div>
+      <Button variant="contained" color="primary" onClick={handleSearch}>
+        Search
+      </Button>
+    </Box>
   );
 };
 

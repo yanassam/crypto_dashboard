@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material/styles";
 
 const CryptoRow = ({ crypto }) => {
   const theme = useTheme();
-
   return (
     <TableRow>
       <TableCell>
@@ -14,7 +13,10 @@ const CryptoRow = ({ crypto }) => {
       <TableCell>${crypto.current_price.toLocaleString()}</TableCell>
       <TableCell
         style={{
-          color: crypto.price_change_percentage_24h >= 0 ? "green" : "red",
+          color:
+            crypto.price_change_percentage_24h >= 0
+              ? theme.palette.success.main // Using the topic for positive change
+              : theme.palette.error.main, // Using the topic for negative change
         }}
       >
         {crypto.price_change_percentage_24h.toFixed(2)}%

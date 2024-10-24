@@ -1,9 +1,7 @@
 import React from "react";
 import CryptoRow from "../CryptoRow/CryptoRow";
 import CryptoTableHeader from "../CryptoTableHeader/CryptoTableHeader";
-
-//Import the necessary components from MUI
-import { Table, TableBody, TableContainer, Paper } from "@mui/material";
+import { Table, TableBody, TableContainer, Paper } from "@mui/material"; //Import the necessary components from MUI
 
 const CryptoTable = ({ cryptoData }) => {
   return (

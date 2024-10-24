@@ -6,13 +6,19 @@ const CryptoTableHeader = () => {
   const theme = useTheme(); // Get the current topic
   return (
     <TableHead>
-      <TableRow
-        style={{ backgroundColor: theme.palette.primary.main, color: "#fff" }}
-      >
-        <TableCell style={{ color: "#fff" }}>Иконка</TableCell>
-        <TableCell style={{ color: "#fff" }}>Криптовалюта</TableCell>
-        <TableCell style={{ color: "#fff" }}>Цена (USD)</TableCell>
-        <TableCell style={{ color: "#fff" }}>Изменение за 24ч</TableCell>
+      <TableRow style={{ backgroundColor: theme.palette.primary.main }}>
+        <TableCell style={{ color: theme.palette.common.white }}>
+          Иконка
+        </TableCell>
+        <TableCell style={{ color: theme.palette.common.white }}>
+          Криптовалюта
+        </TableCell>
+        <TableCell style={{ color: theme.palette.common.white }}>
+          Цена (USD)
+        </TableCell>
+        <TableCell style={{ color: theme.palette.common.white }}>
+          Изменение за 24ч
+        </TableCell>
       </TableRow>
     </TableHead>
   );
