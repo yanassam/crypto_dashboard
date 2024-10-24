@@ -16,11 +16,14 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortType, setSortType] = useState("price");
   const [filterValue, setFilterValue] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       try {
-        const data = await fetchCryptoData(countPerPage, page);
+        const { data, totalItems } = await fetchCryptoData(countPerPage, page);
+
         let filteredData = data;
 
         // Фильтрация по минимальной цене
@@ -50,7 +53,8 @@ function App() {
         }
 
         setCryptoData(filteredData);
-        setLoading(false);
+        setTotalPages(Math.ceil(totalItems / countPerPage)); // Calculate the total number of pages
+        setLoading(false); // Completing the loading state
       } catch (err) {
         setError("Ошибка при загрузке данных");
         setLoading(false);
@@ -60,12 +64,18 @@ function App() {
     getData();
   }, [page, countPerPage, searchQuery, sortType, filterValue]);
 
-  const handleNextPage = () => setPage((prevPage) => prevPage + 1);
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      // Let's check if this is the last page
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
   const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    setPage(1); // Возвращаемся на первую страницу при поиске
+    setPage(1); // Return to the first page when searching
   };
 
   const handleSort = (type) => {
@@ -89,7 +99,7 @@ function App() {
   return (
     <Container style={{ maxWidth: "100vw", overflow: "hidden" }}>
       <Grid container spacing={3}>
-        {/* Сайтбар для фильтрации и сортировки */}
+        {/* Sitebar for filtering and sorting */}
         <Grid item xs={12} sm={4}>
           <Paper style={{ padding: 16, marginBottom: 16 }}>
             <SearchBar onSearch={handleSearch} />
@@ -106,7 +116,7 @@ function App() {
           </Paper>
         </Grid>
 
-        {/* Таблица с криптовалютами */}
+        {/* Table with cryptocurrencies */}
         <Grid item xs={12} sm={8}>
           {cryptoData.length > 0 ? (
             <CryptoTable cryptoData={cryptoData} />
@@ -114,11 +124,14 @@ function App() {
             <p>No data available</p>
           )}
 
-          {/* Пагинация */}
+          {/* Pagination */}
           <PaginationControls
             currentPage={page}
+            totalPages={totalPages} //Display the total number of pages
             onNextPage={handleNextPage}
             onPrevPage={handlePrevPage}
+            disableNext={page >= totalPages || loading} // Disable the button on the last page
+            disablePrev={page === 1 || loading} //Disable the button on the first page
           />
         </Grid>
       </Grid>

@@ -18,7 +18,12 @@ export const fetchCryptoData = async (count = 10, page = 1) => {
         },
       }
     );
-    return response.data;
+
+    const totalItems = 2500;
+    return {
+      data: response.data,
+      totalItems: totalItems,
+    };
   } catch (error) {
     console.error("Error fetching data from API", error);
     throw error;

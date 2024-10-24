@@ -2,7 +2,12 @@ import React from "react";
 import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-const PaginationControls = ({ currentPage, onNextPage, onPrevPage }) => {
+const PaginationControls = ({
+  currentPage,
+  totalPages,
+  onNextPage,
+  onPrevPage,
+}) => {
   const theme = useTheme(); //Connecting the topic
   return (
     <div
@@ -21,7 +26,10 @@ const PaginationControls = ({ currentPage, onNextPage, onPrevPage }) => {
       >
         Предыдущая страница
       </Button>
-      <span>Страница: {currentPage}</span>
+      <span>
+        {" "}
+        Страница: {currentPage} из {totalPages}
+      </span>
       <Button
         variant="contained"
         color="primary"
