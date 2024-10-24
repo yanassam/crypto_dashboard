@@ -87,11 +87,11 @@ function App() {
   if (error) return <p>{error}</p>;
 
   return (
-    <Container>
+    <Container style={{ maxWidth: "100vw", overflow: "hidden" }}>
       <Grid container spacing={3}>
         {/* Сайтбар для фильтрации и сортировки */}
         <Grid item xs={12} sm={4}>
-          <Paper style={{ padding: 16 }}>
+          <Paper style={{ padding: 16, marginBottom: 16 }}>
             <SearchBar onSearch={handleSearch} />
             <FilterSortControls onSort={handleSort} onFilter={handleFilter} />
             <Button

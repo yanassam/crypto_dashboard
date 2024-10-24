@@ -5,9 +5,13 @@ import { Table, TableBody, TableContainer, Paper } from "@mui/material"; //Impor
 
 const CryptoTable = ({ cryptoData }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      component={Paper}
+      style={{ maxHeight: "90vh", overflowY: "auto" }}
+    >
       <Table>
-        <CryptoTableHeader /> {/*Rendering the table header */}
+        <CryptoTableHeader />
+        {/*Rendering the table header */}
         <TableBody>
           {cryptoData.map((crypto) => (
             <CryptoRow key={crypto.id} crypto={crypto} />
