@@ -23,6 +23,8 @@ function App() {
       setLoading(true);
       try {
         const { data, totalItems } = await fetchCryptoData(countPerPage, page);
+        console.log("Fetched Data: ", data);
+        console.log("Total Items: ", totalItems);
 
         let filteredData = data;
 
@@ -38,6 +40,14 @@ function App() {
           filteredData = filteredData.filter((crypto) =>
             crypto.name.toLowerCase().includes(searchQuery.toLowerCase())
           );
+        }
+
+        // Проверка, если данных нет
+        if (filteredData.length === 0) {
+          setError("No data found for the search query.");
+          setCryptoData([]);
+          setLoading(false);
+          return;
         }
 
         // Сортировка
