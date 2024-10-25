@@ -1,6 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect } from "react";
 import { fetchCryptoData } from "./api";
+import CryptoTableWrapper from "./components/CryptoTableWrapper/CryptoTableWrapper";
 import CryptoTable from "./components/CryptoTable/CryptoTable";
 import PaginationControls from "./components/PaginationControls/PaginationControls";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -128,11 +129,7 @@ function App() {
 
         {/* Table with cryptocurrencies */}
         <Grid item xs={12} sm={8}>
-          {cryptoData.length > 0 ? (
-            <CryptoTable cryptoData={cryptoData} />
-          ) : (
-            <p>No data available</p>
-          )}
+          <CryptoTableWrapper cryptoData={cryptoData} loading={loading} />
 
           {/* Pagination */}
           <PaginationControls
