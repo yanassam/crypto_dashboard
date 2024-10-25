@@ -4,25 +4,16 @@ import axios from "axios";
 
 export const fetchCryptoData = async (count = 10, page = 1) => {
   try {
-    const response = await axios.get(
-      "https://api.coingecko.com/api/v3/coins/markets",
-      {
-        params: {
-          vs_currency: "usd",
-          order: "market_cap_desc",
-          per_page: count,
-          page: page,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.get(`http://localhost:5000/crypto-data`, {
+      params: {
+        count,
+        page,
+      },
+    });
 
-    const totalItems = 2500;
     return {
-      data: response.data,
-      totalItems: totalItems,
+      data: response.data.data,
+      totalItems: response.data.totalItems,
     };
   } catch (error) {
     console.error("Error fetching data from API", error);

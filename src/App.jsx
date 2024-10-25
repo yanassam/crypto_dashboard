@@ -1,6 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect } from "react";
 import { fetchCryptoData } from "./api";
+import CryptoTableWrapper from "./components/CryptoTableWrapper/CryptoTableWrapper";
 import CryptoTable from "./components/CryptoTable/CryptoTable";
 import PaginationControls from "./components/PaginationControls/PaginationControls";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -23,6 +24,8 @@ function App() {
       setLoading(true);
       try {
         const { data, totalItems } = await fetchCryptoData(countPerPage, page);
+        console.log("Fetched Data: ", data);
+        console.log("Total Items: ", totalItems);
 
         let filteredData = data;
 
@@ -38,6 +41,14 @@ function App() {
           filteredData = filteredData.filter((crypto) =>
             crypto.name.toLowerCase().includes(searchQuery.toLowerCase())
           );
+        }
+
+        // Проверка, если данных нет
+        if (filteredData.length === 0) {
+          setError("No data found for the search query.");
+          setCryptoData([]);
+          setLoading(false);
+          return;
         }
 
         // Сортировка
@@ -118,11 +129,7 @@ function App() {
 
         {/* Table with cryptocurrencies */}
         <Grid item xs={12} sm={8}>
-          {cryptoData.length > 0 ? (
-            <CryptoTable cryptoData={cryptoData} />
-          ) : (
-            <p>No data available</p>
-          )}
+          <CryptoTableWrapper cryptoData={cryptoData} loading={loading} />
 
           {/* Pagination */}
           <PaginationControls
